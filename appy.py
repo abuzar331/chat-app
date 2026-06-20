@@ -18,6 +18,8 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
 
 db.init_app(app)
+with app.app_context():
+    db.create_all()
 migrate = Migrate(app, db)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
@@ -264,8 +266,6 @@ def delete_chat(other_user_id):
 
 
 
-with app.app_context():
-    db.create_all()
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
