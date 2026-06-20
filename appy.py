@@ -263,8 +263,10 @@ def delete_chat(other_user_id):
     return jsonify({"success": True})
 
 
+
+with app.app_context():
+    db.create_all()
+
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-        print("✅ Tables ready!")
     socketio.run(app, debug=True)
+      
