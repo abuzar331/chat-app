@@ -1,0 +1,17 @@
+# Environment variables — SECRET
+.env
+
+# Python cache
+*.pyc
+__pycache__/
+
+# Virtual environment
+sahilevn/
+
+
+# Uploaded photos — heavy files
+static/uploads/
+
+
+# VS Code settings
+.vscode/
