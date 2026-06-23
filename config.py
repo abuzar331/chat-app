@@ -1,6 +1,9 @@
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
+
+IS_PRODUCTION = os.getenv("RENDER") is not None
 
 class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
@@ -11,11 +14,5 @@ class Config:
         "pool_recycle": 60,
         "pool_size": 1,
         "max_overflow": 0,
-        "connect_args": {
-            "sslmode": "require",
-            "keepalives": 1,
-            "keepalives_idle": 30,
-            "keepalives_interval": 10,
-            "keepalives_count": 5
-        }
+        "connect_args": {"sslmode": "require"} if IS_PRODUCTION else {}
     }
