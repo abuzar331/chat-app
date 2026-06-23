@@ -177,7 +177,9 @@
             cursor: pointer;
             font-size: 14px;
         }
-
+#userList .user-row {
+    display: none;
+}
 
     </style>
 </head>
@@ -449,13 +451,16 @@ socket.on("chat_cleared", function() {
 });
 
 
-
-    function searchUsers(term) {
-        term = term.toLowerCase();
-        document.querySelectorAll(".user-row").forEach(function(row) {
+function searchUsers(term) {
+    term = term.toLowerCase().trim();
+    document.querySelectorAll(".user-row").forEach(function(row) {
+        if (term.length >= 1) {
             row.style.display = row.innerText.toLowerCase().includes(term) ? "" : "none";
-        });
-    }
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
 </script>
 
 </body>
