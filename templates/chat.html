@@ -198,12 +198,11 @@
             border-radius: 16px;
         ">Logout</a>
     </div>
-    <input id="searchInput" placeholder="Search user..." oninput="searchUsers(this.value)">
+    <input id="searchInput" placeholder="🔍 Search user to start chat..." oninput="searchUsers(this.value)">
     <div id="userList">
         {% for user in users %}
-        <div class="user-row" onclick="openChat({{ user.id }}, '{{ user.username }}')">
-            {{ user.username }}
-        </div>
+        <div class="user-row" data-username="{{ user.username }}" onclick="openChat({{ user.id }}, '{{ user.username }}')">{{ user.username }}</div>
+
         {% endfor %}
     </div>
 </div>
@@ -450,17 +449,18 @@ socket.on("chat_cleared", function() {
     document.getElementById("chatBox").innerHTML = "";
 });
 
-
 function searchUsers(term) {
     term = term.toLowerCase().trim();
     document.querySelectorAll(".user-row").forEach(function(row) {
         if (term.length >= 1) {
-            row.style.display = row.innerText.toLowerCase().includes(term) ? "" : "none";
+            var username = row.dataset.username.toLowerCase();
+            row.style.display = username.includes(term) ? "" : "none";
         } else {
             row.style.display = "none";
         }
     });
 }
+
 </script>
 
 </body>
