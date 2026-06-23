@@ -246,11 +246,10 @@
     var myId = {{ session_user_id }};
     var selectedUser = null;
     var selectedFile = null;
-    var socket = io();
-
-    socket.on("connect", function() {
-        console.log("✅ Socket connected");
-    });
+   var socket = io({
+    transports: ['polling'],
+    upgrade: false
+});
 
     function openChat(id, name) {
         selectedUser = id;

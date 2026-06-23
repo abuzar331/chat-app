@@ -21,7 +21,12 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 migrate = Migrate(app, db)
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
+socketio = SocketIO(app, 
+    cors_allowed_origins="*", 
+    async_mode='gevent',
+    ping_timeout=60,
+    ping_interval=25
+)
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
